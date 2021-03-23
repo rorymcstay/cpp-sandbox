@@ -4,3 +4,4 @@ bin/
 lib/
 install/
 build/
+compile_commands.json

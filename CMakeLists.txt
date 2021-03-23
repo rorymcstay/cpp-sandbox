@@ -10,6 +10,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+message("Build type: CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
+
 
 find_package (Threads)
 find_package (Boost 1.55.0 REQUIRED COMPONENTS program_options log log_setup system filesystem)
