@@ -1,0 +1,6 @@
+.clangd
+.gdb_history
+bin/
+lib/
+install/
+build/
