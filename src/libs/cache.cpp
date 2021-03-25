@@ -16,7 +16,6 @@ template<typename T, size_t size_, typename Releaser>
 ObjectPool<T, size_, Releaser>::ObjectPool()
 :   _size(size_)
 ,   _freeObjectRegistry()
-,   _usedObjectRegistry()
 {
     initialise();
 }
@@ -25,12 +24,20 @@ template<typename T, size_t size_, typename Releaser>
 void
 ObjectPool<T, size_, Releaser>::initialise()
 {
-    _usedObjectRegistry.reserve(_size);
     _freeObjectRegistry.reserve(_size);
     for (size_t i(0); i < _size; i++)
     {
-        _freeObjectRegistry.emplace_back(new T(), Releaser());
+        auto releaser = [this, i](T* ptr) { Releaser()(ptr); replace(ptr, i); };
+        _freeObjectRegistry.emplace_back(new T(), releaser);
     }
+}
+
+template<typename T, size_t size_, typename Releaser>
+void
+ObjectPool<T, size_, Releaser>::replace(T* ptr_, int pos)
+{
+    auto releaser = [this, pos](T* ptr) { Releaser()(ptr); replace(ptr, pos); };
+    _freeObjectRegistry[pos] = std::shared_ptr<T>(ptr_, releaser);
 }
 
 template<typename T, size_t size_, typename Releaser>

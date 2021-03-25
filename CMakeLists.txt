@@ -28,14 +28,19 @@ message( "include dirs json ${JSONCPP_INCLUDE_DIRS}")
 add_subdirectory(src)
 add_subdirectory(test)
 
-add_executable(tertiary_func src/tertiary_func.cpp)
-add_executable(main src/main.cpp)
+add_executable(tertiary_func app/tertiary_func.cpp)
+add_executable(main app/main.cpp)
+add_executable(strings app/strings.cpp)
+target_link_libraries(strings LINK_PUBLIC gtest pthread)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/include)
 
 set (CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_SOURCE_DIR})
 
 install(TARGETS
     tertiary_func
     main
+    strings
     # libs
     # tests
     RUNTIME DESTINATION bin

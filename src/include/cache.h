@@ -8,7 +8,6 @@
 
 #include "utils.h"
 
-static int people_created(0);
 
 namespace cache 
 {
@@ -20,16 +19,13 @@ struct Person
     Person()
     :   name("")
     ,   age(0)
-    {
-        LOG("people_created=" << ++people_created);
-    }
+    {}
 };
 
 struct releaser
 {
     void operator() (Person* person_)
     {
-        LOG("Releasing person");
         person_->name = "";
         person_->age = 0;
     }
@@ -52,12 +48,13 @@ public:
 
 private:
 
-    Releaser            _releaser; 
+    Deleter<T>          _releaser; 
     size_t              _size;
     std::vector<Ptr>    _freeObjectRegistry;
     std::vector<Ptr>    _usedObjectRegistry;
 private:
     void initialise();
+    void replace(T* ptr_, int pos );
 
 };
 

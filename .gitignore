@@ -5,3 +5,5 @@ lib/
 install/
 build/
 compile_commands.json
+*.swp
+*.log
