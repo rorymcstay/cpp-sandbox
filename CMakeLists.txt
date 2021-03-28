@@ -1,5 +1,4 @@
 cmake_minimum_required(VERSION 3.10)
-set(CMAKE_CXX_COMPILER /usr/bin/g++-8)
 
 add_compile_options(-DBOOST_LOG_DYN_LINK 
     -Wall -Wextra -Wpedantic  -Werror -lboost_log 
@@ -7,7 +6,7 @@ add_compile_options(-DBOOST_LOG_DYN_LINK
 )
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 message("Build type: CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
@@ -15,6 +14,7 @@ message("Build type: CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
 
 find_package (Threads)
 find_package (Boost 1.55.0 REQUIRED COMPONENTS program_options log log_setup system filesystem)
+add_subdirectory(abseil-cpp)
 
 
 include_directories(
@@ -31,7 +31,9 @@ add_subdirectory(test)
 add_executable(tertiary_func app/tertiary_func.cpp)
 add_executable(main app/main.cpp)
 add_executable(strings app/strings.cpp)
-target_link_libraries(strings LINK_PUBLIC gtest pthread)
+target_link_libraries(strings LINK_PUBLIC gtest pthread absl::strings)
+add_executable(interview app/interview.cpp)
+target_link_libraries(interview LINK_PUBLIC gtest pthread)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/include)
 
@@ -41,6 +43,7 @@ install(TARGETS
     tertiary_func
     main
     strings
+    interview
     # libs
     # tests
     RUNTIME DESTINATION bin

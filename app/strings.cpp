@@ -5,6 +5,10 @@
 #include <string_view>
 #include "utils.h"
 
+#include "absl/strings/str_join.h"
+#include "absl/utility/utility.h"
+
+
 /*
  * Suppose that you are given a string. Write a 
  * function to find the first nonrepeated character 
@@ -19,6 +23,12 @@
 
 // interview
 // ......x..
+
+
+TEST(StrFormat, test_function)
+{
+    std::string message = absl::StrFormat("Welcoe to %s", 6);
+}
 
 char firstNonRepeated(const std::string& string_ )
 {
