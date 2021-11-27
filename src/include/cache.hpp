@@ -1,11 +1,12 @@
-#include "cache.h"
-
 // std
 #include <memory>
 #include <stdexcept>
 #include <vector>
 #include <functional>
 
+#ifndef CACHE_H
+#include "cache.h"
+#endif
 #include "utils.h"
 
 
@@ -38,7 +39,7 @@ void
 ObjectPool<T, size_, Releaser>::replace(T* ptr_, int pos)
 {
     auto releaser = [this, pos](T* ptr) { Releaser()(ptr); replace(ptr, pos); };
-    _freeObjectRegistry[pos] = std::shared_ptr<T>(ptr_, releaser);
+    _freeObjectRegistry[pos] = std::shared_ptr<T>(ptr_, releaser);  
 }
 
 template<typename T, size_t size_, typename Releaser>

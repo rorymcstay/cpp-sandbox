@@ -169,7 +169,7 @@ void btree<T>::preorder_print(node<T> *leaf){
 
 int main(){
 
-	//btree tree;
+
 	btree<int> *tree = new btree<int>();
 
     int val1 = 10;

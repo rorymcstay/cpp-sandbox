@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
-#include "cache.h"
 #include <memory>
 #include <ostream>
 
+#include "cache.h"
 
 using Pool = cache::ObjectPool<cache::Person, 5, cache::releaser>;
 

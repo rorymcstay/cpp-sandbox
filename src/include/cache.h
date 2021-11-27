@@ -34,7 +34,7 @@ struct releaser
 
 template<class T> using Deleter = std::function<void(T*)>;
 
-std::function<void(Person*)> deleter = [](Person* person_) { person_->age = 0; person_->name = ""; };
+
 
 template<typename T, size_t size_, typename Releaser>
 class ObjectPool
@@ -58,9 +58,11 @@ private:
 
 };
 
-template class ObjectPool<Person, 5, releaser>;
+
 
 } // cache
+
+#include "cache.hpp"
 
 #endif
 
